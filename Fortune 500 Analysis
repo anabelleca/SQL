@@ -55,3 +55,36 @@ VALUES
     ('Company II', 'Telecommunications', 110.5, 2000, 1, 21, 12, 4.9),
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
+
+
+SELECT *
+FROM fortune_companies;
+
+# Show which companies offer healthcare benifits "YES" and the ones that don't "NO".
+
+SELECT company_name, 
+CASE WHEN healthcare_benefits =1 THEN "YES"
+ELSE "NO"
+END "Healthcare Benefits"
+FROM fortune_companies;
+
+# Which industries have an average annual revenue of at least $250 billion?
+
+SELECT industry, AVG(revenue) AS average_revenue
+FROM fortune_companies
+GROUP BY industry
+HAVING average_revenue >=250;
+
+# Which healthcare companies offer healthcare benefits and also offer at least 15 days of paid time off?
+
+SELECT company_name
+FROM fortune_companies
+WHERE healthcare_benefits=1 
+AND paid_time_off_days>=15
+AND industry='Healthcare';
+
+# What company in finacials has the lowest annual revenue?
+
+SELECT company_name, MIN(revenue) 
+FROM fortune_companies
+WHERE industry="Financials";
